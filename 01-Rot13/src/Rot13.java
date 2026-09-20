@@ -26,13 +26,36 @@ public class Rot13 {
         for(char c: text.toCharArray()){
             int posMinuscula = lletres.indexOf(c);
             int posMajuscula = lletres.toUpperCase().indexOf(c);
+
+            if (posMinuscula != -1) {
+                int novaPos = (posMinuscula + 13) % minuscules.length;
+                resultat = resultat + minuscules[novaPos];
+            } else if (posMajuscula != -1) {
+                int novaPos = (posMajuscula + 13) % majuscules.length;
+                resultat = resultat + majuscules[novaPos];
+            } else {
+                resultat = resultat + c;
+            }
         }
+        return resultat;
     }
 
     public static String desxifraRot13(String text) {
         String resultat = "";
         for(char c: text.toCharArray()){
+            int posMinuscula = lletres.indexOf(c);
+            int posMajuscula = lletres.toUpperCase().indexOf(c);
             
+            if (posMinuscula != -1) {
+                int novaPos = (posMinuscula - 13 + minuscules.length) % minuscules.length;
+                resultat = resultat + minuscules[novaPos];
+            } else if (posMajuscula != -1) {
+                int novaPos = (posMajuscula - 13 + majuscules.length) % majuscules.length;
+                resultat = resultat + majuscules[novaPos];
+            } else {
+                resultat = resultat + c;
+            }
         }
+        return resultat;
     }
 }
