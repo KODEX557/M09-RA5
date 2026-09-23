@@ -1,5 +1,5 @@
 public class RotX {
-    public static final String lletres = "aàbcdeéèfghiíïjklmnoóòpqrstuúüvwxyz";
+    public static final String lletres = "aáàbcçdeéèfghiíìïjklmnñoóòpqrstuúùüvwxyz";
     public static char[] minuscules = lletres.toCharArray();
     public static char[] majuscules = lletres.toUpperCase().toCharArray();
 
@@ -25,11 +25,8 @@ public class RotX {
         }
 
         System.out.println("\nMissatge xifrat: " + msgsXifrats[3] + "\n---------");
-        
-        for (int i = 0; i < minuscules.length; i++) {
-            String textForcaBruta = "(" + i + ") " + msgsXifrats[3];
-            System.out.printf("%-28s => %s%n", textForcaBruta, forcaBrutaRotX(msgsXifrats[3]));
-        }
+
+        System.out.print(forcaBrutaRotX(msgsXifrats[3]));
     }
 
     public static String xifraRotX(String cadena, int desplaçament) {
@@ -71,23 +68,31 @@ public class RotX {
     }
 
     public static String forcaBrutaRotX(String cadenaXifrada) {
-        String resultat = "";
-        for(int n = 0; n < lletres.length(); n++) {
-            for(char c: cadenaXifrada.toCharArray()){
+        String resultatTotal = "";
+
+        for (int n = 0; n < minuscules.length; n++) {
+            String liniaDesxifrada = "";
+
+            for (char c : cadenaXifrada.toCharArray()) {
                 int posMinuscula = lletres.indexOf(c);
                 int posMajuscula = lletres.toUpperCase().indexOf(c);
-                
+
                 if (posMinuscula != -1) {
                     int novaPos = (posMinuscula - n + minuscules.length) % minuscules.length;
-                    resultat = resultat + minuscules[novaPos];
+                    liniaDesxifrada += minuscules[novaPos];
                 } else if (posMajuscula != -1) {
                     int novaPos = (posMajuscula - n + majuscules.length) % majuscules.length;
-                    resultat = resultat + majuscules[novaPos];
+                    liniaDesxifrada += majuscules[novaPos];
                 } else {
-                    resultat = resultat + c;
+                    liniaDesxifrada += c;
                 }
             }
+
+            // Formatem la línia com al main i la guardem amb un salt de línia
+            String textForcaBruta = "(" + n + ") " + cadenaXifrada;
+            resultatTotal += String.format("%-28s => %s%n", textForcaBruta, liniaDesxifrada);
         }
-        return resultat + "\n";
+
+        return resultatTotal;
     }
 }
