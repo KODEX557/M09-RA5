@@ -88,7 +88,7 @@ public class RotX {
                 }
             }
 
-            // Formatem la línia com al main i la guardem amb un salt de línia
+            // Format del printf en String.format pero fer més fàcil el return
             String textForcaBruta = "(" + n + ") " + cadenaXifrada;
             resultatTotal += String.format("%-28s => %s%n", textForcaBruta, liniaDesxifrada);
         }
