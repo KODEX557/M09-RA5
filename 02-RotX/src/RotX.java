@@ -1,9 +1,11 @@
 public class RotX {
-    public static final String lletres = "aáàbcçdeéèfghiíìïjklmnñoóòpqrstuúùüvwxyz";
-    public static char[] minuscules = lletres.toCharArray();
-    public static char[] majuscules = lletres.toUpperCase().toCharArray();
+    public final String lletres = "aáàbcçdeéèfghiíìïjklmnñoóòpqrstuúùüvwxyz";
+    public char[] minuscules = lletres.toCharArray();
+    public char[] majuscules = lletres.toUpperCase().toCharArray();
 
     public static void main(String[] args) {
+        RotX rotx = new RotX();
+        
         String msgs[] = {"ABC", "XYZ", "Hola, Mr. calçot", "Perdó, per tu què és?"};
         String msgsXifrats[] = new String[msgs.length];
 
@@ -11,7 +13,7 @@ public class RotX {
 
         for (int i = 0; i < msgs.length; i++) {
             int rot = i * 2;
-            msgsXifrats[i] = xifraRotX(msgs[i], rot);
+            msgsXifrats[i] = rotx.xifraRotX(msgs[i], rot);
             String textOrigen = "(" + rot + ")-" + msgs[i];
             System.out.printf("%-28s => %s%n", textOrigen, msgsXifrats[i]);
         }
@@ -21,15 +23,15 @@ public class RotX {
         for (int i = 0; i < msgsXifrats.length; i++) {
             int rot = i * 2;
             String textXifrat = "(" + rot + ") " + msgsXifrats[i];
-            System.out.printf("%-28s => %s%n", textXifrat, desxifraRotX(msgsXifrats[i], rot));
+            System.out.printf("%-28s => %s%n", textXifrat, rotx.desxifraRotX(msgsXifrats[i], rot));
         }
 
         System.out.println("\nMissatge xifrat: " + msgsXifrats[3] + "\n---------");
 
-        System.out.print(forcaBrutaRotX(msgsXifrats[3]));
+        System.out.print(rotx.forcaBrutaRotX(msgsXifrats[3]));
     }
 
-    public static String xifraRotX(String cadena, int desplaçament) {
+    public String xifraRotX(String cadena, int desplaçament) {
        String resultat = "";
         for(char c: cadena.toCharArray()){
             int posMinuscula = lletres.indexOf(c);
@@ -48,7 +50,7 @@ public class RotX {
         return resultat;
     }
 
-    public static String desxifraRotX(String cadena, int desplaçament) {
+    public String desxifraRotX(String cadena, int desplaçament) {
         String resultat = "";
         for(char c: cadena.toCharArray()){
             int posMinuscula = lletres.indexOf(c);
@@ -67,7 +69,7 @@ public class RotX {
         return resultat;
     }
 
-    public static String forcaBrutaRotX(String cadenaXifrada) {
+    public String forcaBrutaRotX(String cadenaXifrada) {
         String resultatTotal = "";
 
         for (int n = 0; n < minuscules.length; n++) {
