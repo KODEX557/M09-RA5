@@ -3,15 +3,17 @@ import java.util.Collections;
 
 public class Monoalfabetic {
 
-    public static final String lletres = "AÁÀBCÇDEÉÈFGHIÍÌÏJKLMNÑOÓÒPQRSTUÚÙÜVWXYZ";
+    public final String lletres = "AÁÀBCÇDEÉÈFGHIÍÌÏJKLMNÑOÓÒPQRSTUÚÙÜVWXYZ";
 
-    public static char[] alfabetPermutat = permutaAlfabet(lletres);
+    public char[] alfabetPermutat = permutaAlfabet(lletres);
     public static void main(String[] args) {
-        for (char c : lletres.toCharArray()) {
+        Monoalfabetic mono = new Monoalfabetic();
+
+        for (char c : mono.lletres.toCharArray()) {
             System.out.print(c + " ");
         }
         System.out.println();
-        for (char c : alfabetPermutat) {
+        for (char c : mono.alfabetPermutat) {
             System.out.print(c + " ");
         }
         System.out.println("\n\nXifratge:");
@@ -25,7 +27,7 @@ public class Monoalfabetic {
         String[] msgsXifrats = new String[tests.length];
 
         for (int i = 0; i < tests.length; i++) {
-            msgsXifrats[i] = xifraMonoAlfa(tests[i]);
+            msgsXifrats[i] = mono.xifraMonoAlfa(tests[i]);
             System.out.printf("%-35s -> %s%n", tests[i], msgsXifrats[i]);
         }
 
@@ -36,7 +38,7 @@ public class Monoalfabetic {
         }
     }
 
-    public static char[] permutaAlfabet(String alfabet) {
+    public char[] permutaAlfabet(String alfabet) {
         
         ArrayList<Character> llista = new ArrayList<>();
         for (char c : alfabet.toCharArray()) {
@@ -53,7 +55,7 @@ public class Monoalfabetic {
         return resultat;
     }
 
-    public static String xifraMonoAlfa(String cadena) {
+    public String xifraMonoAlfa(String cadena) {
        String resultat = "";
 
        for(char c : cadena.toCharArray()){
@@ -74,7 +76,7 @@ public class Monoalfabetic {
        return resultat;
     }
 
-    public static String desxifraMonoAlfa(String cadena) {
+    public String desxifraMonoAlfa(String cadena) {
         
         String resultat = "";
         
