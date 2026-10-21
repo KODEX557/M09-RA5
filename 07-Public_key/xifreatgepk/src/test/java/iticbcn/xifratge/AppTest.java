@@ -1,4 +1,4 @@
-package com.proyecto;
+package iticbcn.xifratge;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
