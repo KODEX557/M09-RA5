@@ -43,7 +43,7 @@ public class TestXifratge {
                         System.err.println(e.getLocalizedMessage());
                     }
                     System.out.println("TextXifrat: " + tx);
-
+                    
                     String desxifrat = null;
 
                     try {
