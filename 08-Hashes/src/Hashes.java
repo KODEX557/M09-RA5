@@ -41,4 +41,29 @@ public class Hashes {
         }
     }
 
+    public String getSHA512AmbSalt(String pw, String salt) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            md.update(salt.getBytes(StandardCharsets.UTF_8));
+            byte[] bytes = md.digest(pw.getBytes(StandardCharsets.UTF_8));
+            HexFormat hex = HexFormat.of();
+            return hex.formatHex(bytes);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String getPBKDF2AmbSalt(String pw, String salt) {
+        try {
+            PBEKeySpec spec = new PBEKeySpec(pw.toCharArray(),
+                    salt.getBytes(StandardCharsets.UTF_8), 65536, 128);
+            SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            byte[] bytes = skf.generateSecret(spec).getEncoded();
+            HexFormat hex = HexFormat.of();
+            return hex.formatHex(bytes);
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
