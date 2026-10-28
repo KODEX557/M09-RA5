@@ -66,4 +66,51 @@ public class Hashes {
         }
     }
 
+    public String forcaBruta(String alg, String hash, String salt) {
+        npass = 0;
+        char[] pass = new char[MAX_LEN];
+        return proba(alg, hash, salt, pass, 0);
+    }
+
+    private String proba(String alg, String hash, String salt, char[] pass, int pos) {
+        for (int i = 0; i < CHARSET.length(); i++) {
+            pass[pos] = CHARSET.charAt(i);
+            String candidat = new String(pass, 0, pos + 1);
+            npass++;
+            if (calculaHash(alg, candidat, salt).equals(hash)) {
+                return candidat;
+            }
+            if (pos + 1 < MAX_LEN) {
+                String trobat = proba(alg, hash, salt, pass, pos + 1);
+                if (trobat != null) {
+                    return trobat;
+                }
+            }
+        }
+        return null;
+    }
+
+    private String calculaHash(String alg, String pw, String salt) {
+        if (alg.equals("SHA-512")) {
+            return getSHA512AmbSalt(pw, salt);
+        }
+        return getPBKDF2AmbSalt(pw, salt);
+    }
+
+    public String getInterval(long t1, long t2) {
+        long diff = t2 - t1;
+        long dies = diff / 86_400_000L;
+        diff %= 86_400_000L;
+        long hores = diff / 3_600_000L;
+        diff %= 3_600_000L;
+        long minuts = diff / 60_000L;
+        diff %= 60_000L;
+        long segons = diff / 1000L;
+        long millis = diff % 1000L;
+        return dies + " dies / " + hores + " hores / " + minuts + " minuts / "
+                + segons + " segons / " + millis + " millis";
+    }
+
+
+
 }
